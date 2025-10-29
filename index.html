@@ -83,32 +83,6 @@
             height: 18px; 
         }
 
-        /* YouTube Section - Grid */
-        #youtube {
-            justify-content: center;
-            align-items: center;
-        }
-
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            max-width: 900px;
-            width: 100%;
-        }
-
-        .video-wrapper {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-        }
-
-        .video-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            border: none;
-        }
-
         /* Scroll Arrows */
         .scroll-arrow {
             position: absolute;
@@ -161,7 +135,6 @@
             h1 { font-size: 2rem; }
             #hero { padding-left: 2rem; padding-right: 2rem; }
             .contact-buttons { position: relative; top: auto; right: auto; align-items: center; margin-bottom: 2rem; }
-            .videos-grid { grid-template-columns: 1fr; max-width: 400px; }
             .scroll-arrow { bottom: 1rem; }
         }
     </style>
@@ -201,32 +174,6 @@
             </button>
             <div class="qr-code" id="qrCode">
                 QR<br>Kode
-            </div>
-        </div>
-        <div class="scroll-arrow" onclick="scrollToSection('youtube')">
-            <div class="arrow-down">▼</div>
-            <div class="arrow-text">Se våre videoer</div>
-        </div>
-    </section>
-
-    <!-- Section 3: YouTube -->
-    <section id="youtube">
-        <img src="youtube.jpg" alt="YouTube Background" class="background-image">
-        <div class="content">
-            <h2>Våre Videoer</h2>
-            <div class="videos-grid">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/F_lpJzwtIbY" allowfullscreen></iframe>
-                </div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/KnwqhJx9qUs" allowfullscreen></iframe>
-                </div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/XnBAhViiyWg" allowfullscreen></iframe>
-                </div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/O3RB060qMIA" allowfullscreen></iframe>
-                </div>
             </div>
         </div>
         <div class="scroll-arrow" onclick="scrollToSection('hero')">
