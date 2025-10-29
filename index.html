@@ -131,11 +131,98 @@
             padding: 5px;
         }
 
+        /* MOBILE OPTIMIZATIONS */
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            #hero { padding-left: 2rem; padding-right: 2rem; }
-            .contact-buttons { position: relative; top: auto; right: auto; align-items: center; margin-bottom: 2rem; }
-            .scroll-arrow { bottom: 1rem; }
+            h1 { 
+                font-size: 2.5rem; 
+                text-align: center;
+                margin-top: 2rem;
+            }
+            
+            #hero { 
+                padding-left: 2rem; 
+                padding-right: 2rem; 
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                padding-top: 5vh;
+            }
+            
+            #hero .content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            p { 
+                font-size: 1.1rem; 
+                text-align: center;
+                margin-top: 1.5rem;
+            }
+            
+            .contact-buttons { 
+                position: relative; 
+                top: auto; 
+                right: auto; 
+                align-items: center; 
+                margin-bottom: 2rem;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 14px 20px;
+                font-size: 1.1rem;
+                justify-content: center;
+            }
+            
+            .scroll-arrow { 
+                bottom: 1.5rem; 
+            }
+            
+            .arrow-text {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+            
+            .qr-code {
+                width: 120px;
+                height: 120px;
+                margin-top: 1.5rem;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 480px) {
+            h1 { 
+                font-size: 2rem; 
+            }
+            
+            #hero { 
+                padding-left: 1.5rem; 
+                padding-right: 1.5rem; 
+            }
+            
+            p { 
+                font-size: 1rem; 
+            }
+            
+            .btn {
+                padding: 12px 18px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Prevent horizontal scrolling */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
