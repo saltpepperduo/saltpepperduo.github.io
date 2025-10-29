@@ -18,22 +18,12 @@
             padding: 2rem;
         }
 
-        /* Background Images */
-        .background-desktop {
+        .background-image {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             object-fit: cover;
             z-index: -1;
-        }
-
-        .background-mobile {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: -2;
-            display: none;
         }
 
         /* First Page - Top Left */
@@ -163,37 +153,19 @@
             padding: 5px;
         }
 
-        /* Mobile Styles */
         @media (max-width: 768px) {
-            .background-desktop {
-                display: none;
-            }
-            
-            .background-mobile {
-                display: block;
-            }
-            
             h1 { font-size: 2rem; }
             #hero { padding-left: 2rem; padding-right: 2rem; }
             .contact-buttons { position: relative; top: auto; right: auto; align-items: center; margin-bottom: 2rem; }
             .videos-grid { grid-template-columns: 1fr; max-width: 400px; }
             .scroll-arrow { bottom: 1rem; }
-            
-            /* Ensure content is readable over mobile background */
-            section {
-                background: rgba(0,0,0,0.3);
-                backdrop-filter: blur(2px);
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Background Images -->
-    <img src="background-desktop.jpg" alt="Background Desktop" class="background-desktop">
-    <img src="background-mobile.jpg" alt="Background Mobile" class="background-mobile">
-
     <!-- Section 1: Hero -->
     <section id="hero">
+        <img src="background-desktop.jpg" alt="Background" class="background-image">
         <div class="content">
             <h1>SALT & PEPPER</h1>
             <p>Salt & Pepper er en fiolin og kontrabass-duo bestående av Katinka Nilssen og Albert Noven. Duoen kommer fra en klassisk bakgrunn, men blander også andre sjangre som folkemusikk og jazz. De er glade i å skrive sine egne arrangementer og bidra til å utvide det eksisterende fiolin og bass-repertoaret.</p>
@@ -206,6 +178,7 @@
 
     <!-- Section 2: Contact -->
     <section id="contact">
+        <img src="background-new.jpg" alt="Background" class="background-image">
         <div class="contact-buttons">
             <a href="https://www.instagram.com/saltpepper.duo/" class="btn" target="_blank">
                 <svg class="instagram-logo" viewBox="0 0 24 24" fill="white">
@@ -228,6 +201,7 @@
 
     <!-- Section 3: YouTube -->
     <section id="youtube">
+        <img src="youtube.jpg" alt="YouTube Background" class="background-image">
         <div class="content">
             <h2>Våre Videoer</h2>
             <div class="videos-grid">
