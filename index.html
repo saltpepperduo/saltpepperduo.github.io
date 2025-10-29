@@ -1,97 +1,399 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsive Background Example</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salt & Pepper Duo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  body, html {
-    height: 100%;
-    font-family: Arial, sans-serif;
-  }
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
 
-  /* Desktop layout */
-  .section-1, .section-2, .section-3 {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 2rem;
-    text-align: center;
-  }
+        body {
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
 
-  .section-1 {
-    background: url('background-desktop-1.jpg') no-repeat center center;
-    background-size: cover;
-  }
+        section {
+            height: 100vh;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem;
+        }
 
-  .section-2 {
-    background: url('background-desktop-2.jpg') no-repeat center center;
-    background-size: cover;
-  }
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
 
-  .section-3 {
-    background: url('background-desktop-3.jpg') no-repeat center center;
-    background-size: cover;
-  }
+        .content {
+            max-width: 800px;
+            z-index: 1;
+        }
 
-  /* Mobile layout */
-  @media (max-width: 768px) {
-    .desktop-layout {
-      display: none;
-    }
+        /* First Page - Top Third Positioning */
+        #hero {
+            justify-content: flex-start;
+            padding-top: 15vh;
+            align-items: center;
+        }
 
-    body {
-      background: url('background-mobile.jpg') no-repeat center center;
-      background-size: cover;
-      background-attachment: fixed; /* ensures background stays in place */
-    }
+        #hero .content {
+            margin-top: 5vh;
+            text-align: center;
+        }
 
-    .mobile-layout {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      color: white;
-      font-size: 1.5rem;
-      text-align: center;
-      justify-content: center;
-      align-items: center;
-    }
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
 
-    .mobile-section {
-      padding: 50px 20px;
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0,0,0,0.4); /* optional overlay for readability */
-    }
-  }
-</style>
+        p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Contact Section Styles */
+        .contact-buttons {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 2;
+            align-items: flex-end;
+        }
+
+        .btn {
+            background: transparent;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: normal;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
+            transform: translateY(-2px);
+        }
+
+        .instagram-logo {
+            width: 20px;
+            height: 20px;
+            filter: invert(1);
+        }
+
+        .email-logo {
+            font-size: 1.2rem;
+        }
+
+        .confirmation-message {
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            margin-top: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .confirmation-message.show {
+            opacity: 1;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+            margin-top: 1rem;
+        }
+
+        /* YouTube Section Styles */
+        #youtube {
+            justify-content: center;
+            align-items: center;
+        }
+
+        #youtube .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: scale(1.05);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 2rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+            }
+            
+            .videos-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .contact-buttons {
+                position: relative;
+                top: auto;
+                right: auto;
+                flex-direction: row;
+                margin-bottom: 2rem;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            #hero {
+                padding-top: 10vh;
+            }
+            
+            .video-container {
+                padding-bottom: 56.25%;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Section 1: Hero -->
+    <section id="hero">
+        <img src="background-desktop.jpg" alt="Background" class="background-image">
+        <img src="background-mobile.jpg" alt="Background Mobile" class="background-image mobile-bg">
+        <div class="content">
+            <h1>SALT & PEPPER</h1>
+            <p>Salt & Pepper er en fiolin og kontrabass-duo bestående av Katinka Nilssen og Albert Noven. Duoen kommer fra en klassisk bakgrunn, men blander også andre sjangre som folkemusikk og jazz. De er glade i å skrive sine egne arrangementer og bidra til å utvide det eksisterende fiolin og bass-repertoaret.</p>
+        </div>
+        <div class="scroll-indicator">▼</div>
+    </section>
 
-<!-- Desktop Layout -->
-<div class="desktop-layout">
-  <div class="section-1">Desktop Hero Section</div>
-  <div class="section-2">Desktop Contact Section</div>
-  <div class="section-3">Desktop YouTube Section</div>
-</div>
+    <!-- Section 2: Contact -->
+    <section id="contact">
+        <img src="background-new.jpg" alt="Background New" class="background-image">
+        <div class="contact-buttons">
+            <a href="https://www.instagram.com/saltpepper.duo/" class="btn" target="_blank">
+                <svg class="instagram-logo" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                Følg oss på Instagram
+            </a>
+            <button class="btn" onclick="copyEmail()">
+                <span class="email-logo">✉️</span>
+                Kontakt oss på mail
+            </button>
+            <div class="confirmation-message" id="emailConfirmation">
+                E-post kopiert!
+            </div>
+            <div class="qr-code">
+                <!-- QR Code will be generated by JavaScript -->
+            </div>
+        </div>
+        <div class="scroll-indicator">▼</div>
+    </section>
 
-<!-- Mobile Layout -->
-<div class="mobile-layout">
-  <div class="mobile-section mobile-hero">Mobile Hero Section</div>
-  <div class="mobile-section mobile-contact">Mobile Contact Section</div>
-  <div class="mobile-section mobile-youtube">Mobile YouTube Section</div>
-</div>
+    <!-- Section 3: YouTube -->
+    <section id="youtube">
+        <img src="youtube.jpg" alt="YouTube Background" class="background-image">
+        <div class="content">
+            <h2>Våre Videoer</h2>
+            <div class="videos-grid">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/F_lpJzwtIbY?rel=0" 
+                            title="Salt & Pepper Video 1" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/KnwqhJx9qUs?rel=0" 
+                            title="Salt & Pepper Video 2" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/XnBAhViiyWg?rel=0" 
+                            title="Salt & Pepper Video 3" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/O3RB060qMIA?rel=0" 
+                            title="Salt & Pepper Video 4" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <script>
+        // Copy email function with confirmation message
+        function copyEmail() {
+            const email = 'contact.saltpepperduo@gmail.com';
+            const confirmation = document.getElementById('emailConfirmation');
+            
+            navigator.clipboard.writeText(email).then(() => {
+                // Show confirmation message
+                confirmation.classList.add('show');
+                
+                // Hide confirmation after 2 seconds
+                setTimeout(() => {
+                    confirmation.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy email: ', err);
+                alert('Kunne ikke kopiere e-post. Vennligst kopier manuelt: ' + email);
+            });
+        }
+
+        // Generate QR code
+        function generateQRCode() {
+            const currentUrl = window.location.href;
+            const qrContainer = document.querySelector('.qr-code');
+            
+            // Using Google Charts API for QR code generation
+            const qrUrl = `https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl=${encodeURIComponent(currentUrl)}`;
+            
+            const qrImage = document.createElement('img');
+            qrImage.src = qrUrl;
+            qrImage.alt = 'QR Code for this page';
+            qrImage.style.width = '100%';
+            qrImage.style.height = '100%';
+            qrImage.style.borderRadius = '5px';
+            
+            qrContainer.appendChild(qrImage);
+        }
+
+        // Hide scroll indicator when at bottom
+        function handleScroll() {
+            const indicators = document.querySelectorAll('.scroll-indicator');
+            const scrollPosition = window.scrollY + window.innerHeight;
+            const pageHeight = document.documentElement.scrollHeight;
+            
+            indicators.forEach(indicator => {
+                if (scrollPosition >= pageHeight - 10) {
+                    indicator.style.display = 'none';
+                } else {
+                    indicator.style.display = 'block';
+                }
+            });
+        }
+
+        // Mobile background handling
+        function handleBackground() {
+            const mobileBg = document.querySelector('.mobile-bg');
+            if (window.innerWidth <= 768) {
+                mobileBg.style.display = 'block';
+            } else {
+                mobileBg.style.display = 'none';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            generateQRCode();
+            handleBackground();
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleBackground);
+        });
+    </script>
 </body>
 </html>
